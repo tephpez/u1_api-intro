@@ -255,9 +255,9 @@ the information we want.
 
 Here is the basic HTML code for a search bar and button
 ```
-<form id = "searchBar">
-    <input type="text" name="inputBar" value="" placeholder="Enter text here"  id="inputBar">
-    <input type="button" name = "submitButton" value="Click here" id="searchButton">
+<form>
+    <input type="text"  value="" placeholder="Enter text here"  id="inputBar">
+    <input type="button"  value="Click here" id="searchButton">
 </form>
 
  
@@ -266,13 +266,14 @@ Here is the basic HTML code for a search bar and button
 And here is some of the JS we will need to make it all run
 ```
 let button = document.querySelector('#searchButton');
-let textInput = document.querySelector('#inputBar').value;
+
 
 
 async function getData (event) {    
      event.preventDefault()
 
  ///FETCH code
+ let textInput = document.querySelector('#inputBar').value;
 
 }
 ```
@@ -302,7 +303,64 @@ const pokemonHeading = document.querySelector('#my-pokemon-heading');
       
 ```      
       
+By the end, our code should look like this
 
+```html
+
+<head>
+    <title> Intro to API's</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+    <h1>Pokedex</h1>
+
+ <form id="searchBar">
+
+    <input type ="text" 
+           placeholder="Choose your Pokemon!"
+           id="inputBar"
+           value=""/>
+
+    <input type="button" 
+           id="searchButton"
+           value="Click here"/>
+
+ </form>
+
+ <h2 id="pokemonName"></h2>
+
+
+ <script src="script.js"></script>
+</body>
+
+```
+
+
+```js
+let button = document.querySelector("#searchButton")
+
+async function getData (event) {
+event.preventDefault()
+let textInput = document.querySelector("#inputBar").value.toLowerCase()
+
+fetch(`https://pokeapi.co/api/v2/pokemon/${textInput}`)
+    .then(res => {
+        return res.json()
+    })
+    .then(res => {
+        console.log("success!", res)
+        let pokemonName = document.querySelector("#pokemonName")
+        pokemonName.innerText = res.name.toUpperCase()
+    })
+    .catch( err => {
+        console.log("error!", err)
+    })
+}
+
+
+button.addEventListener("click", getData)
+```
 
 
 
