@@ -129,7 +129,7 @@ requests will be blocked.
 
 
 ```js
-const url = "https://pokeapi.co/api/v2/pokemon-form/"
+const url = "https://pokeapi.co/api/v2/pokemon/ditto"
 
 fetch(url)
   .then(res => {
